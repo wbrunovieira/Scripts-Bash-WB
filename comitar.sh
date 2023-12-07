@@ -4,7 +4,7 @@ read -p "Digite a mensagem de commit: " commit_message
 
 git add .
 
-status=$(git status --porcelain
+status=$(git status --porcelain)
 
 if [[ -z $status ]]; then
     
