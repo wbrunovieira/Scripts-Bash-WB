@@ -2,7 +2,7 @@
 
 read -p "Digite a mensagem de commit: " commit_message
 
-git add .
+git add . >/dev/null 2>&1
 
 status=$(git status --porcelain)
 
