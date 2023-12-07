@@ -2,16 +2,17 @@
 
 read -p "Digite a mensagem de commit: " commit_message
 
-git_add_output=$(git add . 2>&1)
+unstaged=$(git diff --name-only)
+untracked=$(git ls-files --others --exclude-standard)
 
 status=$(git status --porcelain)
 
-if [[ -z $status ]]; then
+if [[ -z "$unstaged" && -z "$untracked" ]]; then
     
     echo ""
     echo "Bruno, nao tem nada para enviar. Presta atencao :-)"
 else
-    
-    git_commit_output=$(git commit -m "$commit_message" 2>&1)
-    git_push_output=$(git push -u origin main 2>&1)
+    git add .
+    git commit -m "$commit_message"
+    git push -u origin main 
 fi
