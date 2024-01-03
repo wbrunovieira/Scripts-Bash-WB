@@ -9,7 +9,7 @@ df -h | while read line; do
         used=$(echo $line | awk '{print $3}')
         available=$(echo $line | awk '{print $4}')
         capacity=$(echo $line | awk '{print $5}')
-        
+
         # Calcula a porcentagem livre
         percent_free=$(echo $capacity | tr -d '%')
         percent_free=$((100 - percent_free))
@@ -18,4 +18,10 @@ df -h | while read line; do
         echo "Filesystem: $filesystem, Tamanho Total: $size, Usado: $used, Disponível: $available, Capacidade Usada: $capacity, Espaço Livre: $percent_free%"
     fi
 done
+
+# A variável $espaco precisa ser definida. Por exemplo:
+espaco="Verificação de Espaço: $(df -h | grep '/$')"
+
+# Usa osascript para enviar a notificação
+osascript -e "display notification \"$espaco\" with title \"Espaço em Disco\""
 
